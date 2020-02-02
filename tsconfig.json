@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": false,
+        "sourceMap": true,
+        // "noEmit": true, JSファイルを生成したくない場合
+        "removeComments": true,// コメントアウト消してくれる
+        // "noUnusedParameters": true, // 不要な引数のチェック
+    },
+    "exclude": [
+        // コンパイルから除外
+    ]
+}
