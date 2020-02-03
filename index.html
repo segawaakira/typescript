@@ -16,55 +16,6 @@
   <p>住所</p>
   <input type="text" id="js-address" value="※郵便番号入力で自動反映されます" />
 
-
-
-  <script>
-
-    window.onload = function() {
-
-    /*
-    * 郵便番号から住所を取得するAPI
-    */
-    function createCORSRequest(method, url) {
-      var xhr = new XMLHttpRequest();
-        if ("withCredentials" in xhr) {
-            xhr.open(method, url, true);
-        } else if (typeof XDomainRequest != "undefined") {
-            xhr = new XDomainRequest();
-            xhr.open(method, url);
-        } else {
-            xhr = null;
-        }
-        return xhr;
-    }
-
-    /*
-    * 送信ボタンクリックした時
-    */
-    var inputZipCode = document.getElementById("js-zipcode");
-    var submitZipCode = document.getElementById("js-submit");
-    var inputPref = document.getElementById("js-pref");
-    var inputAddress = document.getElementById("js-address");
-    submitZipCode.onclick = function() {
-      var xhr = createCORSRequest('GET', 'https://api.zipaddress.net/?zipcode=' + inputZipCode.value);
-      if (!xhr) {
-          throw new Error('CORS not supported');
-      }
-      xhr.onload = function(){
-        var responseArr = JSON.parse(xhr.response);
-        inputPref.value = responseArr.data.pref;
-        inputAddress.value = responseArr.data.address;
-      };
-      xhr.onerror = function(error){
-        console.log(error);
-      };
-      xhr.send();
-
-      };
-  }
-
-  </script>
-
-  <!-- <script src="./app.js"></script> -->
+  <script src="./app.js"></script>
 </body>
 </html>
