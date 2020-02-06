@@ -1,34 +1,26 @@
-function createCORSRequest(method, url) {
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-        xhr.open(method, url, true);
+var Address = (function () {
+    function Address(zip) {
+        this.addresses = {
+            '079-1100': {
+                'prefecture': '北海道',
+                'city': '赤平市'
+            },
+            '038-0000': {
+                'prefecture': '青森県',
+                'city': '青森市'
+            },
+        };
+        this.zip = zip;
     }
-    else if (typeof XDomainRequest != "undefined") {
-        xhr = new XDomainRequest();
-        xhr.open(method, url);
-    }
-    else {
-        xhr = null;
-    }
-    return xhr;
-}
-var submitZipCode = document.getElementById("js-submit");
-submitZipCode.onclick = function () {
-    var inputZipCode = document.getElementById("js-zipcode");
-    var inputPref = document.getElementById("js-pref");
-    var inputAddress = document.getElementById("js-address");
-    var xhr = createCORSRequest('GET', 'https://api.zipaddress.net/?zipcode=' + inputZipCode.value);
-    if (!xhr) {
-        throw new Error('CORS not supported');
-    }
-    xhr.onload = function () {
-        var responseArr = JSON.parse(xhr.response);
-        inputPref.value = responseArr.data.pref;
-        inputAddress.value = responseArr.data.address;
+    Address.prototype.getZip = function () {
+        return this.zip;
     };
-    xhr.onerror = function (error) {
-        console.log(error);
+    Address.prototype.getAddress = function () {
+        var here = this.addresses[this.zip];
+        return here.prefecture + " " + here.city;
     };
-    xhr.send();
-};
+    return Address;
+}());
+var myAddress = new Address('079-1100');
+console.log(myAddress.getAddress());
 //# sourceMappingURL=app.js.map

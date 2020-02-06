@@ -1,4 +1,4 @@
-
+/*
    function createCORSRequest(method, url) {
     let xhr = new XMLHttpRequest();
       if ("withCredentials" in xhr) {
@@ -34,3 +34,41 @@
      };
      xhr.send();
    };
+*/
+
+class Address {
+  // 変数定義
+  private zip: string;
+  private addresses: any;
+
+  // コンストラクタで初期化
+  public constructor(zip: string) {
+    this.addresses = {
+      '079-1100': {
+        'prefecture': '北海道',
+        'city': '赤平市'
+      },
+      '038-0000': {
+        'prefecture': '青森県',
+        'city': '青森市'
+      },
+    };
+    this.zip = zip;
+  }
+
+  // ゲッター（class内の外からアクセスできないものを、getするメソッド）
+  public getZip(): string {
+    return this.zip;
+  }
+  public getAddress(): string {
+    let here = this.addresses[this.zip];
+    // フォーマット文字列
+    return `${here.prefecture} ${here.city}`;
+  }
+
+}
+
+
+let myAddress = new Address('079-1100');
+
+console.log(myAddress.getAddress());
